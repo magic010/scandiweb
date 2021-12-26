@@ -1,38 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './redux/store';
-import * as serviceWorker from './serviceWorker';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  
-} from "@apollo/client";
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persister } from "./redux/store";
+import * as serviceWorker from "./serviceWorker";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
-  cache: new InMemoryCache()
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
   <React.StrictMode>
-  <Provider store={store}>
-    <BrowserRouter>
-      <PersistGate persistor={persistor}>
-      <ApolloProvider client={client}>
-        <App />
-        </ApolloProvider>
-      </PersistGate>
-    </BrowserRouter>
-  </Provider>,
+    <Provider store={store}>
+      <BrowserRouter>
+        <PersistGate persistor={persister}>
+          <ApolloProvider client={client}>
+            <App />
+          </ApolloProvider>
+        </PersistGate>
+      </BrowserRouter>
+    </Provider>
+    ,
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

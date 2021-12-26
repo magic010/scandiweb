@@ -36,7 +36,7 @@ const App = ({ checkUserSession, currentUser }) => {
             <Route exact path='/checkout' component={CheckoutPage} />
             <Route
               exact
-              path='/signin'
+              path='/signing'
               render={() =>
                 currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />
               }
