@@ -58,7 +58,7 @@ describe("Header component", () => {
     });
   });
 
-  describe("if currentUser is null", () => {
+  describe("if currentUserIsNull", () => {
     it("should render CartDropdown", () => {
       const mockProps = {
         hidden: false,
