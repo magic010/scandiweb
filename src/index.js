@@ -11,7 +11,7 @@ import * as serviceWorker from "./serviceWorker";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: "https://crwn-clothing.com/",
   cache: new InMemoryCache(),
 });
 
