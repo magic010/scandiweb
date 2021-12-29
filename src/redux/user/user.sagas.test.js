@@ -8,14 +8,14 @@ import {
   signOutSuccess,
   signOutFailure,
   signUpSuccess,
-  signUpFailure
+  signUpFailure,
 } from './user.actions';
 
 import {
   auth,
   googleProvider,
   createUserProfileDocument,
-  getCurrentUser
+  getCurrentUser,
 } from '../../firebase/firebase.utils';
 
 import {
@@ -31,14 +31,14 @@ import {
   onCheckUserSession,
   onSignOutStart,
   onSignUpStart,
-  onSignUpSuccess
+  onSignUpSuccess,
 } from './user.sagas';
 
 describe('on signup success saga', () => {
   it('should trigger on SIGN_UP_SUCCESS', () => {
     const generator = onSignUpSuccess();
     expect(generator.next().value).toEqual(
-      takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp)
+      takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp),
     );
   });
 });
@@ -47,7 +47,7 @@ describe('on signup start saga', () => {
   it('should trigger on SIGN_UP_START', () => {
     const generator = onSignUpStart();
     expect(generator.next().value).toEqual(
-      takeLatest(UserActionTypes.SIGN_UP_START, signUp)
+      takeLatest(UserActionTypes.SIGN_UP_START, signUp),
     );
   });
 });
@@ -56,7 +56,7 @@ describe('on signout start saga', () => {
   it('should trigger on SIGN_UP_START', () => {
     const generator = onSignOutStart();
     expect(generator.next().value).toEqual(
-      takeLatest(UserActionTypes.SIGN_OUT_START, signOut)
+      takeLatest(UserActionTypes.SIGN_OUT_START, signOut),
     );
   });
 });
@@ -65,7 +65,7 @@ describe('on check user session saga', () => {
   it('should trigger on CHECK_USER_SESSION', () => {
     const generator = onCheckUserSession();
     expect(generator.next().value).toEqual(
-      takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated)
+      takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated),
     );
   });
 });
@@ -74,7 +74,7 @@ describe('on email sign in start saga', () => {
   it('should trigger on EMAIL_SIGN_IN_START', () => {
     const generator = onEmailSignInStart();
     expect(generator.next().value).toEqual(
-      takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
+      takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail),
     );
   });
 });
@@ -83,7 +83,7 @@ describe('on google sign in start saga', () => {
   it('should trigger on GOOGLE_SIGN_IN_START', () => {
     const generator = onGoogleSignInStart();
     expect(generator.next().value).toEqual(
-      takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle)
+      takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle),
     );
   });
 });
@@ -95,13 +95,13 @@ describe('on sign in after sign up saga', () => {
     const mockAction = {
       payload: {
         user: mockUser,
-        additionalData: mockAdditionalData
-      }
+        additionalData: mockAdditionalData,
+      },
     };
 
     const generator = signInAfterSignUp(mockAction);
     expect(generator.next().value).toEqual(
-      getSnapshotFromUserAuth(mockUser, mockAdditionalData)
+      getSnapshotFromUserAuth(mockUser, mockAdditionalData),
     );
   });
 });
@@ -115,8 +115,8 @@ describe('on sign up saga', () => {
     payload: {
       email: mockEmail,
       password: mockPassword,
-      displayName: mockDisplayName
-    }
+      displayName: mockDisplayName,
+    },
   };
 
   const generator = signUp(mockAction);
@@ -124,7 +124,7 @@ describe('on sign up saga', () => {
   it('should call auth.createUserWithEmailAndPassword', () => {
     const createUserWithEmailAndPassword = jest.spyOn(
       auth,
-      'createUserWithEmailAndPassword'
+      'createUserWithEmailAndPassword',
     );
     generator.next();
     expect(createUserWithEmailAndPassword).toHaveBeenCalled();
@@ -148,7 +148,7 @@ describe('on sign out saga', () => {
     const newGenerator = signOut();
     newGenerator.next();
     expect(newGenerator.throw('error').value).toEqual(
-      put(signOutFailure('error'))
+      put(signOutFailure('error')),
     );
   });
 });
@@ -163,7 +163,7 @@ describe('is user authenticated saga', () => {
   it('should call getSnapshotFromUserAuth if userAuth exists', () => {
     const mockUserAuth = { uid: '123da' };
     expect(generator.next(mockUserAuth).value).toEqual(
-      getSnapshotFromUserAuth(mockUserAuth)
+      getSnapshotFromUserAuth(mockUserAuth),
     );
   });
 
@@ -171,7 +171,7 @@ describe('is user authenticated saga', () => {
     const newGenerator = isUserAuthenticated();
     newGenerator.next();
     expect(newGenerator.throw('error').value).toEqual(
-      put(signInFailure('error'))
+      put(signInFailure('error')),
     );
   });
 });
@@ -182,6 +182,6 @@ describe('get snapshot from userAuth', () => {
   const generator = getSnapshotFromUserAuth(mockUserAuth, mockAdditionalData);
 
   expect(generator.next().value).toEqual(
-    call(createUserProfileDocument, mockUserAuth, mockAdditionalData)
+    call(createUserProfileDocument, mockUserAuth, mockAdditionalData),
   );
 });

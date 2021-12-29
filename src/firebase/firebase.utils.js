@@ -3,12 +3,12 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
 const config = {
-  apiKey: "AIzaSyDlo5C6LeeczXTPBjSevn190LR7T92wVUg",
-  authDomain: "junior-react.firebaseapp.com",
-  projectId: "junior-react",
-  storageBucket: "junior-react.appspot.com",
-  messagingSenderId: "299881481647",
-  appId: "1:299881481647:web:8556476d7cd1289edfdb5a"
+  apiKey: 'AIzaSyDlo5C6LeeczXTPBjSevn190LR7T92wVUg',
+  authDomain: 'junior-react.firebaseapp.com',
+  projectId: 'junior-react',
+  storageBucket: 'junior-react.appspot.com',
+  messagingSenderId: '299881481647',
+  appId: '1:299881481647:web:8556476d7cd1289edfdb5a',
 
 };
 
@@ -29,7 +29,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log('error creating user', error.message);
@@ -39,7 +39,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const getUserCartRef = async userId => {
+export const getUserCartRef = async (userId) => {
   const cartsRef = firestore.collection('carts').where('userId', '==', userId);
   const snapShot = await cartsRef.get();
 
@@ -47,19 +47,18 @@ export const getUserCartRef = async userId => {
     const cartDocRef = firestore.collection('carts').doc();
     await cartDocRef.set({ userId, cartItems: [] });
     return cartDocRef;
-  } else {
-    return snapShot.docs[0].ref;
   }
+  return snapShot.docs[0].ref;
 };
 
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToAdd
+  objectsToAdd,
 ) => {
   const collectionRef = firestore.collection(collectionKey);
 
   const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
+  objectsToAdd.forEach((obj) => {
     const newDocRef = collectionRef.doc();
     batch.set(newDocRef, obj);
   });
@@ -67,15 +66,15 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const convertCollectionsSnapshotToMap = collections => {
-  const transformedCollection = collections.docs.map(doc => {
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
     const { title, items } = doc.data();
 
     return {
       routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
-      items
+      items,
     };
   });
 
@@ -85,14 +84,12 @@ export const convertCollectionsSnapshotToMap = collections => {
   }, {});
 };
 
-export const getCurrentUser = () => {
-  return new Promise((resolve, reject) => {
-    const unsubscribe = auth.onAuthStateChanged(userAuth => {
-      unsubscribe();
-      resolve(userAuth);
-    }, reject);
-  });
-};
+export const getCurrentUser = () => new Promise((resolve, reject) => {
+  const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+    unsubscribe();
+    resolve(userAuth);
+  }, reject);
+});
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
