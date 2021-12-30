@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "persistor"
-    ]
+    ],
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true
 }

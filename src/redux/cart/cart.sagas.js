@@ -1,4 +1,6 @@
-import { all, call, takeLatest, put, select } from 'redux-saga/effects';
+import {
+  all, call, takeLatest, put, select,
+} from 'redux-saga/effects';
 
 import { getUserCartRef } from '../../firebase/firebase.utils';
 import UserActionTypes from '../user/user.types';
@@ -43,9 +45,9 @@ export function* onCartChange() {
     [
       CartActionTypes.ADD_ITEM,
       CartActionTypes.REMOVE_ITEM,
-      CartActionTypes.CLEAR_ITEM_FROM_CART
+      CartActionTypes.CLEAR_ITEM_FROM_CART,
     ],
-    updateCartInFirebase
+    updateCartInFirebase,
   );
 }
 

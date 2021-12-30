@@ -5,10 +5,10 @@ export async function recordSaga(saga, initialAction) {
 
   await runSaga(
     {
-      dispatch: action => dispatched.push(action)
+      dispatch: (action) => dispatched.push(action),
     },
     saga,
-    initialAction
+    initialAction,
   ).done;
 
   return dispatched;

@@ -7,5 +7,5 @@ const Spinner = () => (
     <SpinnerContainer />
   </SpinnerOverlay>
 );
-
+Spinner.displayName = 'Spinner';
 export default Spinner;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SpinnerOverlay = styled.div`
   height: 60vh;
@@ -7,6 +7,7 @@ export const SpinnerOverlay = styled.div`
   justify-content: center;
   align-items: center;
 `;
+SpinnerOverlay.displayName = "SpinnerOverlay";
 
 export const SpinnerContainer = styled.div`
   display: inline-block;
@@ -29,3 +30,4 @@ export const SpinnerContainer = styled.div`
     }
   }
 `;
+SpinnerContainer.displayName = "SpinnerContainer";

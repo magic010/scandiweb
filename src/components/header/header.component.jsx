@@ -8,7 +8,7 @@ import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { signOutStart } from "../../redux/user/user.actions";
 
-import { ReactComponent as Logo } from "../../assets/crown.svg";
+import { ReactComponent as Logo } from "../../assets/a-logo.svg";
 
 import {
   HeaderContainer,
@@ -19,9 +19,6 @@ import {
 
 export const Header = ({ currentUser, hidden, signOutStart }) => (
   <HeaderContainer>
-    <LogoContainer to="/">
-      <Logo className="logo" />
-    </LogoContainer>
     <OptionsContainer>
       <OptionLink to="/shop">SHOP</OptionLink>
       <OptionLink to="/shop">CONTACT</OptionLink>
@@ -32,8 +29,11 @@ export const Header = ({ currentUser, hidden, signOutStart }) => (
       ) : (
         <OptionLink to="/signing">SIGN IN</OptionLink>
       )}
-      <CartIcon />
-    </OptionsContainer>
+     </OptionsContainer>
+    <LogoContainer to="/">
+    <Logo />
+  </LogoContainer>
+    <CartIcon />
     {hidden ? null : <CartDropdown />}
   </HeaderContainer>
 );
